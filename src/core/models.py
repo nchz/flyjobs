@@ -2,7 +2,17 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
+# TODO Define real classes.
+Publisher = Candidate = User
+
+
 class Job(models.Model):
+    publisher = models.ForeignKey(
+        Publisher,
+        editable=False,
+        on_delete=models.CASCADE,
+        related_name="posts",
+    )
     title = models.CharField(
         max_length=100,
     )
@@ -21,10 +31,12 @@ class Job(models.Model):
         blank=True,
     )
     subscriptions = models.ManyToManyField(
-        User,
-        # through="core.models.Subscription",
+        Candidate,
         through="Subscription",
     )
+
+    def __str__(self):
+        return f"[{self.id}] {self.title}"
 
 
 class Subscription(models.Model):
@@ -33,10 +45,13 @@ class Subscription(models.Model):
         on_delete=models.SET_NULL,
         null=True,
     )
-    user = models.ForeignKey(
-        User,
+    candidate = models.ForeignKey(
+        Candidate,
         on_delete=models.CASCADE,
     )
     date_created = models.DateTimeField(
         auto_now_add=True,
     )
+
+    def __str__(self):
+        return f"[{self.id}] User {self.candidate} :: Job {self.job}"
