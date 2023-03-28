@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import JobPost, Subscription
+from core.models import Job, Subscription
 
 
 class SubscriptionInline(admin.TabularInline):
@@ -16,8 +16,8 @@ class SubscriptionAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(JobPost)
-class JobPostAdmin(admin.ModelAdmin):
+@admin.register(Job)
+class JobAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "title",

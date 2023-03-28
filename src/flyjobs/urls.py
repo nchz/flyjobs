@@ -2,11 +2,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
-from core.views import JobPostViewSet
+from core.views import JobViewSet, UserViewSet
 
 
 router = DefaultRouter()
-router.register("jobs", JobPostViewSet, "job-post")
+router.register("jobs", JobViewSet, "job")
+router.register("users", UserViewSet, "user")
 
 urlpatterns = [
     path("api/", include(router.urls)),

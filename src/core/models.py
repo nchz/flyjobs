@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class JobPost(models.Model):
+class Job(models.Model):
     title = models.CharField(
         max_length=100,
     )
@@ -28,8 +28,8 @@ class JobPost(models.Model):
 
 
 class Subscription(models.Model):
-    job_post = models.ForeignKey(
-        JobPost,
+    job = models.ForeignKey(
+        Job,
         on_delete=models.SET_NULL,
         null=True,
     )

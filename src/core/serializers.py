@@ -1,9 +1,18 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
-from core.models import JobPost
+from core.models import Job
 
 
-class JobPostSerializer(serializers.ModelSerializer):
+class JobSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
-        model = JobPost
+        model = Job
         fields = "__all__"
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        exclude = [
+            "password",
+        ]
