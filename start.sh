@@ -1,0 +1,19 @@
+#!/bin/bash -e
+
+mkdir -p src/data
+
+if [[ $1 = "c" ]]; then
+    read -p 'clean all? '
+    rm -f src/data/db.sqlite3
+    rm -f src/**/migrations/0*.py
+fi
+
+export SECRET_KEY='some-secret'
+python src/manage.py makemigrations
+python src/manage.py migrate
+if [[ $1 = "c" ]]; then
+    python src/manage.py createsuperuser
+fi
+python src/manage.py runserver
+
+# python manage.py check --deploy
