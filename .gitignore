@@ -8,8 +8,7 @@ logs/
 misc/
 **/*~
 **/.*
+!.env-template
 !.gitignore
 !.dockerignore
 !.flake8
-
-migrations/

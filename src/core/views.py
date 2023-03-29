@@ -11,6 +11,8 @@ from core.throttling import SubscriptionRateThrottle
 class JobViewSet(viewsets.ModelViewSet):
     serializer_class = JobSerializer
     queryset = Job.objects.all()
+    filterset_fields = ["title", "description", "location", "salary"]
+    search_fields = ["title", "description", "location"]
 
     def perform_create(self, serializer):
         serializer.save(publisher=self.request.user)
