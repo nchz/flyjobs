@@ -101,7 +101,6 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
     ],
     "DEFAULT_THROTTLE_RATES": {
-        # Add only in prod.
-        "user": "1/day",
+        "user": "10/day",
     },
 }
