@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from core.models import Job, Subscription
 from core.serializers import UserSerializer, JobSerializer
-from core.exceptions import AlreadySubscribedAPIException
+from core.exceptions import AlreadySubscribedAPIException, JobFullAPIException
 from core.throttling import SubscriptionRateThrottle
 
 
@@ -37,14 +37,17 @@ class JobViewSet(viewsets.ModelViewSet):
     @action(methods=["GET"], detail=True)
     def apply(self, request, pk=None):
         job = self.get_object()
-        subs, created = Subscription.objects.get_or_create(
-            job=job,
-            candidate=request.user,
-        )
-        if created:
-            return Response({"detail": "OK"})
+        if job.max_num_subs != 0 and job.subscriptions.count() < job.max_num_subs:
+            subs, created = Subscription.objects.get_or_create(
+                job=job,
+                candidate=request.user,
+            )
+            if created:
+                return Response({"detail": "OK"})
+            else:
+                raise AlreadySubscribedAPIException(subs)
         else:
-            raise AlreadySubscribedAPIException(subs)
+            raise JobFullAPIException
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
