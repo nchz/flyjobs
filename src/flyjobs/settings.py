@@ -100,7 +100,14 @@ REST_FRAMEWORK = {
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
     ],
-    "DEFAULT_THROTTLE_RATES": {
-        "user": "10/day",
-    },
 }
+
+
+# Production settings.
+
+if os.environ["FLYJOBS_ENV"] == "prod":
+    DEBUG = False
+    ALLOWED_HOSTS = ["flyjobs.duckdns.org"]
+    REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+        "user": "10/day",
+    }

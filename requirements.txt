@@ -4,3 +4,6 @@ djangorestframework==3.14.0
 # For API schema generation.
 pyyaml==6.0
 uritemplate==4.1.1
+# For server.
+gevent==22.10.2
+gunicorn==20.1.0
