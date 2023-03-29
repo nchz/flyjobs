@@ -13,7 +13,9 @@ router.register("users", UserViewSet, "user")
 
 schema_view = get_schema_view(
     title="Flyjobs",
-    description='Check the <a href="/api/">Browsable API</a>.',
+    description=(
+        'Check the <a href="/api/">Browsable API</a>. Login to see content here!'
+    ),
 )
 
 swagger_view = TemplateView.as_view(

@@ -20,14 +20,17 @@ To quickly try the API, use the start script:
 
 To run a production like setup, use Docker:
 ```bash
-# Collect static files for Admin and Browsable API interfaces.
-python src/manage.py collectstatic
-
 # Setup containers.
 docker-compose up --build
 
 # Setup database.
-docker exec flyjobs_web "./migrations.sh"
+docker-compose exec web ./migrations.sh
+
+# Create admin user.
+docker-compose exec web python manage.py createsuperuser
+
+# Collect static files for Admin and Browsable API interfaces.
+docker-compose exec web python manage.py collectstatic
 ```
 
 Then go to http://localhost/ to explore the API.

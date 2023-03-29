@@ -8,6 +8,7 @@ if [[ $1 = "c" ]]; then
     rm -f src/**/migrations/0*.py
 fi
 
+export FLYJOBS_ENV='test'
 export SECRET_KEY='some-secret'
 python src/manage.py makemigrations
 python src/manage.py migrate

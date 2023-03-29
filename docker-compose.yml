@@ -22,3 +22,4 @@ services:
     env_file: .env
     volumes:
       - ./data:/src/data
+      - ./src/collectstatic:/src/collectstatic
