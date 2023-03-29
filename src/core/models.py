@@ -30,6 +30,9 @@ class Job(models.Model):
         null=True,
         blank=True,
     )
+    max_num_subs = models.PositiveIntegerField(
+        default=0,
+    )
     subscriptions = models.ManyToManyField(
         Candidate,
         through="Subscription",

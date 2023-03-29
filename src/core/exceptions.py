@@ -8,3 +8,8 @@ class AlreadySubscribedAPIException(APIException):
     def __init__(self, subs, *args, **kwargs):
         detail = f"User already subscribed with date {subs.date_created}"
         super().__init__(detail=detail, *args, **kwargs)
+
+
+class JobFullAPIException(APIException):
+    default_detail = "Job has reached limit of subscriptions."
+    status_code = status.HTTP_409_CONFLICT
