@@ -1,3 +1,6 @@
 Django==4.1.7
 django-filter==22.1
 djangorestframework==3.14.0
+# For API schema generation.
+pyyaml==6.0
+uritemplate==4.1.1
