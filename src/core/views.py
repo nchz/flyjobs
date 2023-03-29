@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from core.models import Job, Subscription
 from core.serializers import UserSerializer, JobSerializer
 from core.exceptions import AlreadySubscribedAPIException
+from core.throttling import SubscriptionRateThrottle
 
 
 class JobViewSet(viewsets.ModelViewSet):
@@ -23,6 +24,12 @@ class JobViewSet(viewsets.ModelViewSet):
                 # TODO Implement actual Publisher permissions.
                 permissions.IsAdminUser(),
             ]
+
+    def get_throttles(self):
+        if self.action == "apply":
+            return [SubscriptionRateThrottle()]
+        else:
+            return []
 
     # TODO This must use POST method since it creates resources in the db.
     @action(methods=["GET"], detail=True)

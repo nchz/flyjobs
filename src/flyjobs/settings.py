@@ -100,4 +100,8 @@ REST_FRAMEWORK = {
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.SearchFilter",
     ],
+    "DEFAULT_THROTTLE_RATES": {
+        # Add only in prod.
+        "user": "1/day",
+    },
 }
